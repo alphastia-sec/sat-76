@@ -33,3 +33,15 @@ jobs:
       with:
         name: DRUM_SAT_76-Windows-VST3
         path: build/DRUM_SAT_76_artefacts/Release/VST3/DRUM_SAT_76.vst3
+   # 5. Uruchomienie Inno Setup w celu stworzenia instalatora .exe
+    - name: Build Windows Installer
+      uses: minic/inno-setup-action@v1.2.2
+      with:
+        path: installer.iss
+
+    # 6. Spakowanie i udostępnienie gotowego instalatora .exe do pobrania
+    - name: Upload Windows Installer Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: DRUM_SAT_76-Windows-Installer
+        path: DRUM_SAT_76_Windows_Installer.exe
