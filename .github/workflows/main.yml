@@ -15,7 +15,7 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v4
 
-    # 2. Pobranie frameworka JUCE (brakuje go w repozytorium, a CMake go wymaga)
+    # 2. Pobranie frameworka JUCE
     - name: Clone JUCE
       run: git clone https://github.com/juce-framework/JUCE.git JUCE
 
@@ -27,19 +27,15 @@ jobs:
     - name: Build Plugin
       run: cmake --build build --config Release
 
-    # 5. Spakowanie i udostępnienie gotowego pliku .vst3 do pobrania
-    - name: Upload VST3 Artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: DRUM_SAT_76-Windows-VST3
-        path: build/DRUM_SAT_76_artefacts/Release/VST3/DRUM_SAT_76.vst3
-   # 5. Uruchomienie Inno Setup w celu stworzenia instalatora .exe
-    - name: Build Windows Installer
-      uses: minic/inno-setup-action@v1.2.2
-      with:
-        path: installer.iss
+    # 5. Instalacja oficjalnego Inno Setup (niezawodna metoda przez Chocolatey)
+    - name: Install Inno Setup
+      run: choco install innosetup --yes
 
-    # 6. Spakowanie i udostępnienie gotowego instalatora .exe do pobrania
+    # 6. Uruchomienie kompilatora instalatora
+    - name: Build Windows Installer
+      run: "C:\\Program Files (x86)\\Inno Setup 6\\ISCC.exe" installer.iss
+
+    # 7. Spakowanie i udostępnienie gotowego instalatora .exe do pobrania
     - name: Upload Windows Installer Artifact
       uses: actions/upload-artifact@v4
       with:
