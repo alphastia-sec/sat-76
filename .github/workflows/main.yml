@@ -32,11 +32,8 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: DRUM_SAT_76-Windows-VST3
-        path: build/DRUM_SAT_76_artefacts/Release/VST3/DRUM_SAT_76.vst3# 4. Właściwa kompilacja wtyczki w trybie Release
-    - name: Build Plugin
-      run: cmake --build build --config Release
-
-    # 5. Uruchomienie Inno Setup w celu stworzenia instalatora .exe
+        path: build/DRUM_SAT_76_artefacts/Release/VST3/DRUM_SAT_76.vst3
+   # 5. Uruchomienie Inno Setup w celu stworzenia instalatora .exe
     - name: Build Windows Installer
       uses: minic/inno-setup-action@v1.2.2
       with:
